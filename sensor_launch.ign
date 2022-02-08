@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<ignition version='1.0'>
+  <executable name='sensor-world'>
+    <command>ign gazebo segment.sdf</command>
+  </executable>
+
+  <executable name='random_walk_node'>
+    <command>./build/publisher</command>
+  </executable>
+  <executable name='subscriber_node'>
+    <command>./build/subscriber</command>
+  </executable>
+
+</ignition>
