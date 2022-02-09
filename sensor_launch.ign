@@ -4,8 +4,8 @@
     <command>ign gazebo segment.sdf</command>
   </executable>
 
-  <executable name='random_walk_node'>
-    <command>./build/publisher</command>
+  <executable name='random_walk_collision_avoidance'>
+    <command>./build/random_walk_collision_avoidance</command>
   </executable>
   <executable name='subscriber_node'>
     <command>./build/subscriber</command>

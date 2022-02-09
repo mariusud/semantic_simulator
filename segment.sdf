@@ -263,7 +263,7 @@
       <link name="body" >
         <visual name="visual">
           <plugin filename="ignition-gazebo-label-system" name="ignition::gazebo::systems::Label">
-            <label>5</label>
+            <label>20</label>
           </plugin>
           <geometry>
             <mesh>
@@ -390,7 +390,7 @@
             </sensor>
           </link>
           <link name="semantic_camera_link">
-            <pose>0 0.1 0.5 0 0 0</pose>
+            <pose>0 0.0 0.5 0 0 0</pose>
             <inertial>
               <mass>0.1</mass>
               <inertia>

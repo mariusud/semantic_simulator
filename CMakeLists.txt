@@ -6,6 +6,7 @@ project(semantic-segmentation)
 find_package(ignition-transport11 QUIET REQUIRED OPTIONAL_COMPONENTS log)
 set(IGN_TRANSPORT_VER ${ignition-transport11_VERSION_MAJOR})
 find_package(ignition-msgs8 QUIET REQUIRED)
+find_package(ignition-rendering6 REQUIRED)
 
 include_directories(${CMAKE_BINARY_DIR})
 
@@ -21,11 +22,10 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/subscriber.cc")
 endif()
 
 
-if (EXISTS "${CMAKE_SOURCE_DIR}/publisher.cc")
-  add_executable(publisher publisher.cc)
-  target_link_libraries(publisher ignition-transport${IGN_TRANSPORT_VER}::core)
+if (EXISTS "${CMAKE_SOURCE_DIR}/random_walk_collision_avoidance.cc")
+  add_executable(random_walk_collision_avoidance random_walk_collision_avoidance.cc)
+  target_link_libraries(random_walk_collision_avoidance ignition-transport${IGN_TRANSPORT_VER}::core)
 endif()
-
 
 
 if (EXISTS "${CMAKE_SOURCE_DIR}/msgs/")

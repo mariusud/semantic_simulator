@@ -1,0 +1,78 @@
+/*
+ * Copyright (C) 2020 Open Source Robotics Foundation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+*/
+#include <ignition/msgs/twist.pb.h>
+#include <ignition/msgs/laserscan.pb.h>
+#include <ignition/transport/Node.hh>
+#include <random>
+#include <iostream>
+
+double random_gen(){
+    return (double)rand() / RAND_MAX; // for generating random points between 0 to 1
+}
+double get_random(double min, double max) {
+  return min + (max-min)*random_gen();
+}
+
+std::string topic_pub = "/cmd_vel";   //publish to this topic
+ignition::transport::Node node;
+auto pub = node.Advertise<ignition::msgs::Twist>(topic_pub);
+
+//////////////////////////////////////////////////
+/// \brief Function called each time a topic update is received.
+void random_walk_callback(const ignition::msgs::LaserScan &_msg)
+{
+  ignition::msgs::Twist data;
+
+  bool allMore = true;
+  for (int i = 0; i < _msg.ranges_size(); i++)
+  {
+    if (_msg.ranges(i) < 1.0) 
+    {
+      allMore = false;
+      break;
+    }
+  }
+  std::cout << allMore;
+  if (allMore) //if all bigger than one
+  {
+    data.mutable_linear()->set_x(1);
+    data.mutable_angular()->set_z(get_random(-0.05,0.05));
+  }
+  else // move out the way
+  {
+    data.mutable_linear()->set_x(0.0);
+    data.mutable_angular()->set_z(get_random(-1,1));
+  }
+  pub.Publish(data);
+}
+
+//////////////////////////////////////////////////
+int main(int argc, char **argv)
+{
+  std::string topic_sub = "/lidar";   // subscribe to this topic
+  // Subscribe to a topic by registering a callback.
+  if (!node.Subscribe(topic_sub, random_walk_callback))
+  {
+    std::cerr << "Error subscribing to topic [" << topic_sub << "]" << std::endl;
+    return -1;
+  }
+
+  // Zzzzzz.
+  ignition::transport::waitForShutdown();
+
+  return 0;
+}
