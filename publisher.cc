@@ -54,7 +54,6 @@ int main(int argc, char **argv)
   {
     if (!pub.Publish(msg))
       break;
-    std::cout << "Publishing on topic [" << topic << "]" << std::endl;
     angularmsg.set_z(get_random(-1,1));
     linearmsg.set_x(get_random(-1,1));
 
