@@ -28,6 +28,12 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/random_walk_collision_avoidance.cc")
 endif()
 
 
+if (EXISTS "${CMAKE_SOURCE_DIR}/publish_random.cc")
+  add_executable(publish_random publish_random.cc)
+  target_link_libraries(publish_random ignition-transport${IGN_TRANSPORT_VER}::core)
+endif()
+
+
 if (EXISTS "${CMAKE_SOURCE_DIR}/msgs/")
   # Message generation. Only required when using custom Protobuf messages.
   find_package(Protobuf REQUIRED)

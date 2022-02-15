@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find ros_ign_gazebo)/launch/ign_gazebo.launch">
+    <arg name="ign_args" value="-r -v 3 /home/marius/Development/SemanticSegmentation/segment.sdf"/>
+  </include>
+
+  <node
+    pkg="ros_ign_bridge"
+    type="parameter_bridge"
+    name="$(anon ros_ign_bridge)"
+    output="screen"
+    args="/lidar@sensor_msgs/LaserScan@ignition.msgs.LaserScan /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked /semantic@sensor_msgs/Image@ignition.msgs.Image semantic/colored_map@sensor_msgs/Image@ignition.msgs.Image semantic/labels_map@sensor_msgs/Image@ignition.msgs.Image">
+  </node>
+  <!-- <node
+    pkg="ros_ign_image"
+    type="image_bridge"
+    name="$(anon ros_ign_image)"
+    output="screen"
+    args="camera semantic /semantic/labels_map/image /semantic/colored_map/image">
+  </node> -->
+  <node
+    type="rviz"
+    name="rviz"
+    pkg="rviz"
+    args="-d /home/marius/Development/SemanticSegmentation/rviz/gpu_lidar_bridge.rviz" />
+
+
+</launch>
+
+
+
