@@ -10,7 +10,13 @@
     type="parameter_bridge"
     name="$(anon ros_ign_bridge)"
     output="screen"
-    args="/lidar@sensor_msgs/LaserScan@ignition.msgs.LaserScan /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked /semantic@sensor_msgs/Image@ignition.msgs.Image semantic/colored_map@sensor_msgs/Image@ignition.msgs.Image semantic/labels_map@sensor_msgs/Image@ignition.msgs.Image">
+    args="/lidar@sensor_msgs/LaserScan@ignition.msgs.LaserScan 
+          /lidar/points@sensor_msgs/PointCloud2@ignition.msgs.PointCloudPacked 
+          /semantic@sensor_msgs/Image@ignition.msgs.Image 
+          semantic/colored_map@sensor_msgs/Image@ignition.msgs.Image 
+          semantic/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          semantic/camera_info@sensor_msgs/CameraInfo@ignition.msgs.CameraInfo
+          ">
   </node>
   <!-- <node
     pkg="ros_ign_image"

@@ -224,7 +224,7 @@
           </link>
     
           <link name="lidar_link">
-            <pose>0 0.2 0.5 0 0 0</pose>
+            <pose>0 0.0 0.5 0 0 0</pose>
             <inertial>
               <mass>0.1</mass>
               <inertia>
@@ -256,16 +256,50 @@
               <lidar>
                 <scan>
                   <horizontal>
-                    <samples>640</samples>
+                    <samples>512</samples>
                     <resolution>1</resolution>
                     <min_angle>-3.14159265359</min_angle>
                     <max_angle>3.14159265359</max_angle>
                   </horizontal>
                   <vertical>
+                    <samples>64</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-0.78539816339</min_angle>
+                    <max_angle>0.78539816339</max_angle>
+                  </vertical>
+                </scan>
+                <range>
+                  <min>1.7</min>
+                  <max>10.0</max>
+                  <resolution>0.03</resolution>
+                </range>
+                <noise>
+                  <type>gaussian</type>
+                  <mean>0</mean>
+                  <stddev>0.008</stddev>
+                </noise>
+              </lidar>
+              <alwaysOn>1</alwaysOn>
+              <visualize>true</visualize>
+            </sensor>
+            </link>
+            <!-- <sensor name='gpu_lidar' type='gpu_lidar'>
+            <pose>0 0 0 0 0 0</pose>
+              <topic>lidar</topic>
+              <update_rate>10</update_rate>
+              <lidar>
+                <scan>
+                  <horizontal>
                     <samples>640</samples>
                     <resolution>1</resolution>
-                    <min_angle>-0.261799</min_angle>
-                    <max_angle>0.261799</max_angle>
+                    <min_angle>-1</min_angle>
+                    <max_angle>1</max_angle>
+                  </horizontal>
+                  <vertical>
+                    <samples>640</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-1.1</min_angle>
+                    <max_angle>1.261799</max_angle>
                   </vertical>
                 </scan>
                 <range>
@@ -282,7 +316,7 @@
               <alwaysOn>1</alwaysOn>
               <visualize>true</visualize>
             </sensor>
-          </link>
+          </link> -->
           <link name="semantic_camera_link">
             <pose>0 0.0 0.5 0 0 0</pose>
             <inertial>
@@ -308,17 +342,19 @@
               </geometry>
             </visual>
             <sensor name="semantic_segmentation_camera" type="segmentation">
+              <!-- <pose relative_to="vehicle_blue::semantic_camera_link">0 0 0.5 -1.57 -1.57 0 </pose> -->
               <topic>semantic</topic>
               <camera>
                 <segmentation_type>semantic</segmentation_type>
-                <horizontal_fov>1.57</horizontal_fov>
+                <!-- <horizontal_fov>1.57</horizontal_fov> -->
+                <!-- <vertical_fov>3.14</vertical_fov> -->
                 <image>
-                  <width>800</width>
-                  <height>600</height>
+                  <width>320</width>
+                  <height>240</height>
                 </image>
                 <clip>
-                  <near>0.1</near>
-                  <far>100</far>
+                  <near>1.7</near>
+                  <far>10</far>
                 </clip>
                 <!-- uncomment these lines to save segmentation data -->
                 <!--

@@ -40,21 +40,20 @@ void random_walk_callback(const ignition::msgs::LaserScan &_msg)
   bool allMore = true;
   for (int i = 0; i < _msg.ranges_size(); i++)
   {
-    if (_msg.ranges(i) < 1.0) 
+    if (_msg.ranges(i) < 100.0) 
     {
       allMore = false;
       break;
     }
   }
-  std::cout << allMore;
   if (allMore) //if all bigger than one
   {
-    data.mutable_linear()->set_x(1);
-    data.mutable_angular()->set_z(get_random(-0.05,0.05));
+    data.mutable_linear()->set_x(5);
+    data.mutable_angular()->set_z(get_random(-0.5,0.5));
   }
   else // move out the way
   {
-    data.mutable_linear()->set_x(0.0);
+    data.mutable_linear()->set_x(10.0);
     data.mutable_angular()->set_z(get_random(-1,1));
   }
   pub.Publish(data);

@@ -9,7 +9,7 @@ void cb(const ignition::msgs::StringMsg &_msg)
 int main(int argc, char **argv)
 {
   ignition::transport::Node node;
-  std::string topic = "/foo";
+  std::string topic = "/world/segmentation_world/pose/info";
   // Subscribe to a topic by registering a callback.
   if (!node.Subscribe(topic, cb))
   {
