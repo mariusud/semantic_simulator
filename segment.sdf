@@ -222,7 +222,17 @@
               </geometry>
             </collision>
           </link>
-    
+        <plugin
+           filename="ignition-gazebo-pose-publisher-system"
+           name="ignition::gazebo::systems::PosePublisher">
+          <use_pose_vector_msg>true</use_pose_vector_msg>
+          <publish_link_pose>true</publish_link_pose>
+          <publish_sensor_pose>true</publish_sensor_pose>
+          <publish_collision_pose>false</publish_collision_pose>
+          <publish_visual_pose>false</publish_visual_pose>
+          <publish_nested_model_pose>true</publish_nested_model_pose>
+          <update_frequency>100</update_frequency>
+        </plugin>
           <link name="lidar_link">
             <pose>0 0.0 0.5 0 0 0</pose>
             <inertial>
@@ -362,6 +372,15 @@
                   <path>segmentation_data/semantic_camera</path>
                 </save>
                 -->
+                <!-- <lens> -->
+                    <!-- <intrinsics> -->
+                            <!-- <fx>100</fx> -->
+                            <!-- <fy>100</fy> -->
+                            <!-- <cx>640</cx> -->
+                            <!-- <cy>360</cy> -->
+                            <!-- <s>0</s>s> -->
+                    <!-- </intrinsics> -->
+                <!-- </lens> -->
               </camera>
               <always_on>1</always_on>
               <update_rate>30</update_rate>

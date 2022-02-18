@@ -16,15 +16,10 @@
           semantic/colored_map@sensor_msgs/Image@ignition.msgs.Image 
           semantic/labels_map@sensor_msgs/Image@ignition.msgs.Image
           semantic/camera_info@sensor_msgs/CameraInfo@ignition.msgs.CameraInfo
+          /model/vehicle_blue/pose@tf2_msgs/TFMessage@ignition.msgs.Pose_V
           ">
+    <remap from="/model/vehicle_blue/pose" to="tf" />
   </node>
-  <!-- <node
-    pkg="ros_ign_image"
-    type="image_bridge"
-    name="$(anon ros_ign_image)"
-    output="screen"
-    args="camera semantic /semantic/labels_map/image /semantic/colored_map/image">
-  </node> -->
   <node
     type="rviz"
     name="rviz"
