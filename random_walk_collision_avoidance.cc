@@ -36,11 +36,10 @@ auto pub = node.Advertise<ignition::msgs::Twist>(topic_pub);
 void random_walk_callback(const ignition::msgs::LaserScan &_msg)
 {
   ignition::msgs::Twist data;
-
   bool allMore = true;
   for (int i = 0; i < _msg.ranges_size(); i++)
   {
-    if (_msg.ranges(i) < 100.0) 
+    if (_msg.ranges(i) < 1.0) 
     {
       allMore = false;
       break;
@@ -48,13 +47,13 @@ void random_walk_callback(const ignition::msgs::LaserScan &_msg)
   }
   if (allMore) //if all bigger than one
   {
-    data.mutable_linear()->set_x(5);
+    data.mutable_linear()->set_x(1.0);
     data.mutable_angular()->set_z(get_random(-0.5,0.5));
   }
   else // move out the way
   {
-    data.mutable_linear()->set_x(10.0);
-    data.mutable_angular()->set_z(get_random(-1,1));
+    data.mutable_linear()->set_x(-0.2);
+    data.mutable_angular()->set_z(get_random(0,1));
   }
   pub.Publish(data);
 }
@@ -62,7 +61,7 @@ void random_walk_callback(const ignition::msgs::LaserScan &_msg)
 //////////////////////////////////////////////////
 int main(int argc, char **argv)
 {
-  std::string topic_sub = "/lidar";   // subscribe to this topic
+  std::string topic_sub = "/gpu_lidar_collision_avoidance";   // subscribe to this topic
   // Subscribe to a topic by registering a callback.
   if (!node.Subscribe(topic_sub, random_walk_callback))
   {

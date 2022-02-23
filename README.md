@@ -119,4 +119,16 @@ save pcl as txt file with x,y,z,color
 
 projected_pts = [cameraModel.project3dToPixel(list(pt)+[1]) for pt in corners]
 
-fix tf transform for projections
+
+
+### steps for dataset
+
+add more cameras
+
+space them so that only one obj at a time is seen
+
+find a way to instance segment each object
+
+research datasets i.e. semanticKITTI and how they are saved
+do simulation
+
