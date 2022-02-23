@@ -61,16 +61,16 @@ void random_walk_callback(const ignition::msgs::LaserScan &_msg)
       data.mutable_angular()->set_z(0.0);
     }
     else if (x < -20.0) {
-      data.mutable_linear()->set_x(-2);
+      data.mutable_linear()->set_x(2);
       data.mutable_angular()->set_z(0.0);
     }
     else if (y > 20.0) {
       data.mutable_linear()->set_x(-2);
-      data.mutable_angular()->set_z(0.0);
+      data.mutable_angular()->set_z(1.57);
     }
     else if (y < -20.0) {
-      data.mutable_linear()->set_x(-2);
-      data.mutable_angular()->set_z(0.0);
+      data.mutable_linear()->set_x(2);
+      data.mutable_angular()->set_z(1.57);
     }
     else 
     {
@@ -82,7 +82,7 @@ void random_walk_callback(const ignition::msgs::LaserScan &_msg)
   }
   else if (allMore && check_pose(x,y) ) //if sufficiently far away from everything and not outside area, do normal stuff
   {
-    data.mutable_linear()->set_x(1.0);
+    data.mutable_linear()->set_x(3.0);
     data.mutable_angular()->set_z(get_random(-0.5,0.5));
     sleeper = 3000;
   }
@@ -104,17 +104,6 @@ void cb(const ignition::msgs::Pose_V &_msg,
   // std::cout << "Topic: [" << _msg.pose(9).name() << "]" << std::endl;
   x =  pose.position().x();
   y =  pose.position().y();
-
-  // std::cout <<"poseget " << x << y << check_pose(x,y) << std::endl;
-
-  // std::cout << "Topic: [" << _info << "]" << std::endl;
-  // int i = 0;
-  // while(1) {
-    // std::cout << "Topic: [" << _msg.pose(i).name() << "], i " << i << std::endl;
-    // i++;
-  // }
-
-  // std::cout << _msg.DebugString() << std::endl;
 }
 
 int main(int argc, char **argv)
@@ -141,23 +130,8 @@ int main(int argc, char **argv)
     std::cerr << "Error subscribing to topic [" << topic << "]" << std::endl;
     return -1;
   }
-
-
-
-
   ignition::transport::waitForShutdown();
-  // // Prepare the message.
-  // ignition::msgs::StringMsg msg;
-  // msg.set_data("HELLO");
 
-  // Publish messages at 1Hz.
-  // while (!g_terminatePub)
-  // {
-  //   if (!pub.Publish(msg))
-  //     break;
-  //   std::cout << "Publishing hello on topic [" << topic << "]" << std::endl;
-  //   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  // }
   return 0;
 }
 
