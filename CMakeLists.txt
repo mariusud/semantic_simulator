@@ -15,10 +15,13 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/segmentation_node.cc")
   target_link_libraries(segmentation_node ignition-transport${IGN_TRANSPORT_VER}::core)
 endif()
 
-
-if (EXISTS "${CMAKE_SOURCE_DIR}/subscriber.cc")
-  add_executable(subscriber subscriber.cc)
-  target_link_libraries(subscriber ignition-transport${IGN_TRANSPORT_VER}::core)
+if (EXISTS "${CMAKE_SOURCE_DIR}/spiral_movement.cc")
+  add_executable(spiral_movement spiral_movement.cc)
+  target_link_libraries(spiral_movement ignition-transport${IGN_TRANSPORT_VER}::core)
+endif()
+if (EXISTS "${CMAKE_SOURCE_DIR}/subscriber_pose.cc")
+  add_executable(subscriber_pose subscriber_pose.cc)
+  target_link_libraries(subscriber_pose ignition-transport${IGN_TRANSPORT_VER}::core)
 endif()
 
 
@@ -40,3 +43,10 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/msgs/")
   add_subdirectory(msgs)
   set_source_files_properties(${PROTO_SRC} ${PROTO_HEADER} PROPERTIES GENERATED TRUE)
 endif()
+
+
+if (EXISTS "${CMAKE_SOURCE_DIR}/creator.cc")
+  add_executable(creator creator.cc)
+  target_link_libraries(creator
+    ignition-transport${IGN_TRANSPORT_VER}::core)
+  endif()
