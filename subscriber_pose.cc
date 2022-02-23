@@ -41,6 +41,8 @@ double get_random(double min, double max) {
 
 void random_walk_callback(const ignition::msgs::LaserScan &_msg)
 {
+  std::cout << "checkpose" << x << y;
+
   ignition::msgs::Twist data;
   bool allMore = true;
   for (int i = 0; i < _msg.ranges_size(); i++)

@@ -15,10 +15,7 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/segmentation_node.cc")
   target_link_libraries(segmentation_node ignition-transport${IGN_TRANSPORT_VER}::core)
 endif()
 
-if (EXISTS "${CMAKE_SOURCE_DIR}/spiral_movement.cc")
-  add_executable(spiral_movement spiral_movement.cc)
-  target_link_libraries(spiral_movement ignition-transport${IGN_TRANSPORT_VER}::core)
-endif()
+
 if (EXISTS "${CMAKE_SOURCE_DIR}/subscriber_pose.cc")
   add_executable(subscriber_pose subscriber_pose.cc)
   target_link_libraries(subscriber_pose ignition-transport${IGN_TRANSPORT_VER}::core)
