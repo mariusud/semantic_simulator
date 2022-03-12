@@ -20,6 +20,12 @@
           panoptic/labels_map@sensor_msgs/Image@ignition.msgs.Image
           panoptic2/labels_map@sensor_msgs/Image@ignition.msgs.Image
           panoptic3/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          panoptic4/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          panoptic5/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          panoptic6/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          panoptic7/labels_map@sensor_msgs/Image@ignition.msgs.Image
+          panoptic8/labels_map@sensor_msgs/Image@ignition.msgs.Image
+  
           ">
     <remap from="/model/vehicle_blue/pose" to="tf" />
   </node>

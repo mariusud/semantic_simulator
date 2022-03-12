@@ -201,7 +201,7 @@
       </link>
     </model>
     <model name='vehicle_blue'>
-          <pose>0 0 0.325 0 0 0.0</pose>
+          <pose>-10 0 0.325 0 0 0.0</pose>
           <link name='chassis'>
             <pose>-0.151427 -0 0.175 0 -0 0</pose>
             <inertial>
@@ -281,8 +281,8 @@
                   <horizontal>
                     <samples>512</samples>
                     <resolution>1</resolution>
-                    <min_angle>-1.57079632679</min_angle>
-                    <max_angle>1.57079632679</max_angle>
+                    <min_angle>-3.57079632679</min_angle>
+                    <max_angle>3.57079632679</max_angle>
                   </horizontal>
                   <vertical>
                     <samples>128</samples>
@@ -293,7 +293,7 @@
                 </scan>
                 <range>
                   <min>1.7</min>
-                  <max>10.0</max>
+                  <max>50.0</max>
                   <resolution>0.03</resolution>
                 </range>
                 <noise>
@@ -318,7 +318,7 @@
                     <max_angle>1.57079632679</max_angle>
                   </horizontal>
                   <vertical>
-                    <samples>1000</samples>
+                    <samples>100</samples>
                     <resolution>0.1</resolution>
                     <min_angle>0</min_angle>
                     <max_angle>1.0</max_angle>
@@ -326,14 +326,9 @@
                 </scan>
                 <range>
                   <min>1.7</min>
-                  <max>10.0</max>
+                  <max>20.0</max>
                   <resolution>0.03</resolution>
                 </range>
-                <noise>
-                  <type>gaussian</type>
-                  <mean>0</mean>
-                  <stddev>0.008</stddev>
-                </noise>
               </lidar>
               <alwaysOn>1</alwaysOn>
               <!-- <visualize>true</visualize> -->
@@ -410,23 +405,8 @@
                 </image>
                 <clip>
                   <near>1.7</near>
-                  <far>10</far>
+                  <far>50</far>
                 </clip>
-                <!-- uncomment these lines to save segmentation data -->
-                <!--
-                <save enabled="true">
-                  <path>segmentation_data/semantic_camera</path>
-                </save>
-                -->
-                <!-- <lens> -->
-                    <!-- <intrinsics> -->
-                            <!-- <fx>100</fx> -->
-                            <!-- <fy>100</fy> -->
-                            <!-- <cx>640</cx> -->
-                            <!-- <cy>360</cy> -->
-                            <!-- <s>0</s>s> -->
-                    <!-- </intrinsics> -->
-                <!-- </lens> -->
               </camera>
               <always_on>1</always_on>
               <update_rate>30</update_rate>
@@ -458,35 +438,17 @@
               </geometry>
             </visual>
             <sensor name="semantic_segmentation_camera_2" type="segmentation">
-              <!-- <pose relative_to="vehicle_blue::semantic_camera_link">0 0 0.5 -1.57 -1.57 0 </pose> -->
               <topic>panoptic2</topic>
               <camera>
                 <segmentation_type>panoptic</segmentation_type>
-                <!-- <horizontal_fov>1.57</horizontal_fov> -->
-                <!-- <vertical_fov>3.14</vertical_fov> -->
                 <image>
                   <width>320</width>
                   <height>240</height>
                 </image>
                 <clip>
                   <near>1.7</near>
-                  <far>10</far>
+                  <far>50</far>
                 </clip>
-                <!-- uncomment these lines to save segmentation data -->
-                <!--
-                <save enabled="true">
-                  <path>segmentation_data/semantic_camera</path>
-                </save>
-                -->
-                <!-- <lens> -->
-                    <!-- <intrinsics> -->
-                            <!-- <fx>100</fx> -->
-                            <!-- <fy>100</fy> -->
-                            <!-- <cx>640</cx> -->
-                            <!-- <cy>360</cy> -->
-                            <!-- <s>0</s>s> -->
-                    <!-- </intrinsics> -->
-                <!-- </lens> -->
               </camera>
               <always_on>1</always_on>
               <update_rate>30</update_rate>
@@ -494,7 +456,7 @@
             </sensor>
           </link>
           <link name="semantic_camera_link_3">
-            <pose>0 0.0 0.5 0 0 -0.78539816339</pose>
+            <pose>0 0.0 0.5 0 0 1.57079632679</pose>
             <inertial>
               <mass>0.1</mass>
               <inertia>
@@ -518,41 +480,239 @@
               </geometry>
             </visual>
             <sensor name="semantic_segmentation_camera_3" type="segmentation">
-              <!-- <pose relative_to="vehicle_blue::semantic_camera_link">0 0 0.5 -1.57 -1.57 0 </pose> -->
               <topic>panoptic3</topic>
               <camera>
                 <segmentation_type>panoptic</segmentation_type>
-                <!-- <horizontal_fov>1.57</horizontal_fov> -->
-                <!-- <vertical_fov>3.14</vertical_fov> -->
                 <image>
                   <width>320</width>
                   <height>240</height>
                 </image>
                 <clip>
                   <near>1.7</near>
-                  <far>10</far>
+                  <far>50</far>
                 </clip>
-                <!-- uncomment these lines to save segmentation data -->
-                <!--
-                <save enabled="true">
-                  <path>segmentation_data/semantic_camera</path>
-                </save>
-                -->
-                <!-- <lens> -->
-                    <!-- <intrinsics> -->
-                            <!-- <fx>100</fx> -->
-                            <!-- <fy>100</fy> -->
-                            <!-- <cx>640</cx> -->
-                            <!-- <cy>360</cy> -->
-                            <!-- <s>0</s>s> -->
-                    <!-- </intrinsics> -->
-                <!-- </lens> -->
               </camera>
               <always_on>1</always_on>
               <update_rate>30</update_rate>
               <visualize>true</visualize>
             </sensor>
           </link>
+
+          <link name="semantic_camera_link_4">
+            <pose>0 0.0 0.5 0 0 2.35619449019</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <inertia>
+                <ixx>0.000166667</ixx>
+                <iyy>0.000166667</iyy>
+                <izz>0.000166667</izz>
+              </inertia>
+            </inertial>
+            <collision name="collision">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </collision>
+            <visual name="visual">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </visual>
+            <sensor name="semantic_segmentation_camera_4" type="segmentation">
+              <topic>panoptic4</topic>
+              <camera>
+                <segmentation_type>panoptic</segmentation_type>
+                <image>
+                  <width>320</width>
+                  <height>240</height>
+                </image>
+                <clip>
+                  <near>1.7</near>
+                  <far>50</far>
+                </clip>
+              </camera>
+              <always_on>1</always_on>
+              <update_rate>30</update_rate>
+              <visualize>true</visualize>
+            </sensor>
+          </link>
+
+          <link name="semantic_camera_link_5">
+            <pose>0 0.0 0.5 0 0 3.14159265359</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <inertia>
+                <ixx>0.000166667</ixx>
+                <iyy>0.000166667</iyy>
+                <izz>0.000166667</izz>
+              </inertia>
+            </inertial>
+            <collision name="collision">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </collision>
+            <visual name="visual">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </visual>
+            <sensor name="semantic_segmentation_camera_5" type="segmentation">
+              <topic>panoptic5</topic>
+              <camera>
+                <segmentation_type>panoptic</segmentation_type>
+                <image>
+                  <width>320</width>
+                  <height>240</height>
+                </image>
+                <clip>
+                  <near>1.7</near>
+                  <far>50</far>
+                </clip>
+              </camera>
+              <always_on>1</always_on>
+              <update_rate>30</update_rate>
+              <visualize>true</visualize>
+            </sensor>
+          </link>
+
+          <link name="semantic_camera_link_6">
+            <pose>0 0.0 0.5 0 0 3.92699081699</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <inertia>
+                <ixx>0.000166667</ixx>
+                <iyy>0.000166667</iyy>
+                <izz>0.000166667</izz>
+              </inertia>
+            </inertial>
+            <collision name="collision">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </collision>
+            <visual name="visual">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </visual>
+            <sensor name="semantic_segmentation_camera_6" type="segmentation">
+              <topic>panoptic6</topic>
+              <camera>
+                <segmentation_type>panoptic</segmentation_type>
+                <image>
+                  <width>320</width>
+                  <height>240</height>
+                </image>
+                <clip>
+                  <near>1.7</near>
+                  <far>50</far>
+                </clip>
+              </camera>
+              <always_on>1</always_on>
+              <update_rate>30</update_rate>
+              <visualize>true</visualize>
+            </sensor>
+          </link>
+          <link name="semantic_camera_link_7">
+            <pose>0 0.0 0.5 0 0 4.71238898038</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <inertia>
+                <ixx>0.000166667</ixx>
+                <iyy>0.000166667</iyy>
+                <izz>0.000166667</izz>
+              </inertia>
+            </inertial>
+            <collision name="collision">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </collision>
+            <visual name="visual">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </visual>
+            <sensor name="semantic_segmentation_camera_7" type="segmentation">
+              <topic>panoptic7</topic>
+              <camera>
+                <segmentation_type>panoptic</segmentation_type>
+                <image>
+                  <width>320</width>
+                  <height>240</height>
+                </image>
+                <clip>
+                  <near>1.7</near>
+                  <far>50</far>
+                </clip>
+              </camera>
+              <always_on>1</always_on>
+              <update_rate>30</update_rate>
+              <visualize>true</visualize>
+            </sensor>
+          </link>
+          <link name="semantic_camera_link_8">
+            <pose>0 0.0 0.5 0 0 5.49778714378</pose>
+            <inertial>
+              <mass>0.1</mass>
+              <inertia>
+                <ixx>0.000166667</ixx>
+                <iyy>0.000166667</iyy>
+                <izz>0.000166667</izz>
+              </inertia>
+            </inertial>
+            <collision name="collision">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </collision>
+            <visual name="visual">
+              <geometry>
+                <box>
+                  <size>0.1 0.1 0.1</size>
+                </box>
+              </geometry>
+            </visual>
+            <sensor name="semantic_segmentation_camera_8" type="segmentation">
+              <topic>panoptic8</topic>
+              <camera>
+                <segmentation_type>panoptic</segmentation_type>
+                <image>
+                  <width>320</width>
+                  <height>240</height>
+                </image>
+                <clip>
+                  <near>1.7</near>
+                  <far>50</far>
+                </clip>
+              </camera>
+              <always_on>1</always_on>
+              <update_rate>30</update_rate>
+              <visualize>true</visualize>
+            </sensor>
+          </link>
+
+
+
           <link name='left_wheel'>
             <pose>0.554283 0.625029 -0.025 -1.5707 0 0</pose>
             <inertial>
@@ -666,10 +826,34 @@
           <joint name='segmentation_camera_sensor_joint_2' type='fixed'>
             <parent>chassis</parent>
             <child>semantic_camera_link_2</child>
-          </joint>          <joint name='segmentation_camera_sensor_joint_3' type='fixed'>
+          </joint>
+          <joint name='segmentation_camera_sensor_joint_3' type='fixed'>
             <parent>chassis</parent>
             <child>semantic_camera_link_3</child>
           </joint>
+          <joint name='segmentation_camera_sensor_joint_4' type='fixed'>
+            <parent>chassis</parent>
+            <child>semantic_camera_link_4</child>
+          </joint>
+          <joint name='segmentation_camera_sensor_joint_5' type='fixed'>
+            <parent>chassis</parent>
+            <child>semantic_camera_link_5</child>
+          </joint>
+          <joint name='segmentation_camera_sensor_joint_6' type='fixed'>
+            <parent>chassis</parent>
+            <child>semantic_camera_link_6</child>
+          </joint>
+          <joint name='segmentation_camera_sensor_joint_7' type='fixed'>
+            <parent>chassis</parent>
+            <child>semantic_camera_link_7</child>
+          </joint>
+
+          <joint name='segmentation_camera_sensor_joint_8' type='fixed'>
+            <parent>chassis</parent>
+            <child>semantic_camera_link_8</child>
+          </joint>
+
+
           <joint name='left_wheel_joint' type='revolute'>
             <parent>chassis</parent>
             <child>left_wheel</child>
@@ -712,7 +896,7 @@
         </model>
     <!-- Stairs, all of them have label 5 -->
     <model name="stair_0">
-    <pose>0 1 0 0 0 0</pose>
+    <pose>0 0 0 0 0 0</pose>
     <static>true</static>
     <link name="body">
         <visual name="visual">
@@ -722,11 +906,214 @@
             <geometry>
                 <mesh>
                     <scale>1 1 1</scale>
-                    <uri>meshes/stairs/stairs_0121.dae</uri>
+                    <uri>meshes/stairs/stairs_0116.dae</uri>
                 </mesh>
             </geometry>
         </visual>
     </link>
     </model>
+    <!--walls-->
+    <model name='wall'>
+        <static>true</static>
+        <pose>50 0 0 0 0 0</pose><!--pose relative to the world-->
+        <link name='box'>
+            <pose/>
+            <inertial> <!--inertial properties of the link mass, inertia matix-->
+                <mass>1.14395</mass>
+                <inertia>
+                    <ixx>9.532917</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.023832</iyy>
+                    <iyz>0</iyz>
+                    <izz>9.556749</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>0.01 100.0 20.0</size> 
+                    </box>
+                </geometry>
+                <!--let's add color to our link-->
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'> <!--todo: describe why we need the collision-->
+                <geometry>
+                    <box>
+                        <size>0.5 10.0 2.0</size>
+                    </box>
+                </geometry>
+            </collision>
+            <sensor name='sensor_contact' type='contact'>
+                <contact>
+                    <collision>collision</collision>
+                </contact>
+            </sensor>
+        </link>
+        <plugin filename="ignition-gazebo-touchplugin-system"
+                name="ignition::gazebo::systems::TouchPlugin">
+            <target>vehicle_blue</target>
+            <namespace>wall</namespace>
+            <time>0.001</time>
+            <enabled>true</enabled>
+        </plugin>
+    </model>
+    <model name='wall2'>
+        <static>true</static>
+        <pose>0 50 0 0 0 0</pose><!--pose relative to the world-->
+        <link name='box'>
+            <pose/>
+            <inertial> <!--inertial properties of the link mass, inertia matix-->
+                <mass>1.14395</mass>
+                <inertia>
+                    <ixx>9.532917</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.023832</iyy>
+                    <iyz>0</iyz>
+                    <izz>9.556749</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>100.0 0.01 20.0</size> 
+                    </box>
+                </geometry>
+                <!--let's add color to our link-->
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'> <!--todo: describe why we need the collision-->
+                <geometry>
+                    <box>
+                        <size>0.5 10.0 2.0</size>
+                    </box>
+                </geometry>
+            </collision>
+            <sensor name='sensor_contact' type='contact'>
+                <contact>
+                    <collision>collision</collision>
+                </contact>
+            </sensor>
+        </link>
+        <plugin filename="ignition-gazebo-touchplugin-system"
+                name="ignition::gazebo::systems::TouchPlugin">
+            <target>vehicle_blue</target>
+            <namespace>wall</namespace>
+            <time>0.001</time>
+            <enabled>true</enabled>
+        </plugin>
+    </model>
+    <model name='wall3'>
+        <static>true</static>
+        <pose>-50 0 0 0 0 0</pose><!--pose relative to the world-->
+        <link name='box'>
+            <pose/>
+            <inertial> <!--inertial properties of the link mass, inertia matix-->
+                <mass>1.14395</mass>
+                <inertia>
+                    <ixx>9.532917</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.023832</iyy>
+                    <iyz>0</iyz>
+                    <izz>9.556749</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>0.01 100.0 20.0</size> 
+                    </box>
+                </geometry>
+                <!--let's add color to our link-->
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'> <!--todo: describe why we need the collision-->
+                <geometry>
+                    <box>
+                        <size>0.5 10.0 2.0</size>
+                    </box>
+                </geometry>
+            </collision>
+            <sensor name='sensor_contact' type='contact'>
+                <contact>
+                    <collision>collision</collision>
+                </contact>
+            </sensor>
+        </link>
+        <plugin filename="ignition-gazebo-touchplugin-system"
+                name="ignition::gazebo::systems::TouchPlugin">
+            <target>vehicle_blue</target>
+            <namespace>wall</namespace>
+            <time>0.001</time>
+            <enabled>true</enabled>
+        </plugin>
+    </model>
+    <model name='wall4'>
+        <static>true</static>
+        <pose>0 -50 0 0 0 0</pose><!--pose relative to the world-->
+        <link name='box'>
+            <pose/>
+            <inertial> <!--inertial properties of the link mass, inertia matix-->
+                <mass>1.14395</mass>
+                <inertia>
+                    <ixx>9.532917</ixx>
+                    <ixy>0</ixy>
+                    <ixz>0</ixz>
+                    <iyy>0.023832</iyy>
+                    <iyz>0</iyz>
+                    <izz>9.556749</izz>
+                </inertia>
+            </inertial>
+            <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>100.0 0.01 20.0</size> 
+                    </box>
+                </geometry>
+                <!--let's add color to our link-->
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+            </visual>
+            <collision name='collision'> <!--todo: describe why we need the collision-->
+                <geometry>
+                    <box>
+                        <size>0.5 10.0 2.0</size>
+                    </box>
+                </geometry>
+            </collision>
+            <sensor name='sensor_contact' type='contact'>
+                <contact>
+                    <collision>collision</collision>
+                </contact>
+            </sensor>
+        </link>
+        <plugin filename="ignition-gazebo-touchplugin-system"
+                name="ignition::gazebo::systems::TouchPlugin">
+            <target>vehicle_blue</target>
+            <namespace>wall</namespace>
+            <time>0.001</time>
+            <enabled>true</enabled>
+        </plugin>
+    </model>
+
+
   </world>
 </sdf>
