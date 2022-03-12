@@ -132,3 +132,16 @@ find a way to instance segment each object
 research datasets i.e. semanticKITTI and how they are saved
 do simulation
 
+
+week 1:
+add more cameras
+save to files
+create script for running
+create tanks
+create chimneys
+run
+
+week 2:
+train
+
+ ./visualize.py --sequence 00 --dataset /home/marius/ws/src/labelling_node/src/dataset/ 
