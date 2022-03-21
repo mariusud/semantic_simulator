@@ -293,7 +293,7 @@
                 </scan>
                 <range>
                   <min>1.7</min>
-                  <max>50.0</max>
+                  <max>30.0</max>
                   <resolution>0.03</resolution>
                 </range>
                 <noise>
@@ -1282,8 +1282,8 @@
             </plugin>
             <geometry>
                 <mesh>
-                    <scale>1 1 1</scale>
-                    <uri>meshes/stairs/stairs_0116.dae</uri>
+	 	 	 	 	 	 	 	 	<scale>0.100000 0.100000 0.200000</scale>  
+	 	 	 	 	 	 	 	 	<uri>chimneys/chimney_01.STL</uri>  
                 </mesh>
             </geometry>
         </visual>

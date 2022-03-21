@@ -16,15 +16,10 @@ if (EXISTS "${CMAKE_SOURCE_DIR}/segmentation_node.cc")
 endif()
 
 
-if (EXISTS "${CMAKE_SOURCE_DIR}/subscriber_pose.cc")
-  add_executable(subscriber_pose subscriber_pose.cc)
-  target_link_libraries(subscriber_pose ignition-transport${IGN_TRANSPORT_VER}::core)
-endif()
 
-
-if (EXISTS "${CMAKE_SOURCE_DIR}/random_walk_collision_avoidance.cc")
-  add_executable(random_walk_collision_avoidance random_walk_collision_avoidance.cc)
-  target_link_libraries(random_walk_collision_avoidance ignition-transport${IGN_TRANSPORT_VER}::core)
+if (EXISTS "${CMAKE_SOURCE_DIR}/lidar_node.cc")
+  add_executable(lidar_node lidar_node.cc)
+  target_link_libraries(lidar_node ignition-transport${IGN_TRANSPORT_VER}::core)
 endif()
 
 

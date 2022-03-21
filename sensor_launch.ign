@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 <ignition version='1.0'>
-  <executable name='sensor-world'>
+  <!-- <executable name='sensor-world'>
     <command>ign gazebo segment.sdf</command>
-  </executable>
+  </executable> -->
 
   <!-- <executable name='random_walk_collision_avoidance'>
     <command>./build/random_walk_collision_avoidance</command>
@@ -10,7 +10,7 @@
   <!-- <executable name='subscriber_node'>
     <command>./build/subscriber</command>
   </executable> -->
-  <executable name='creator'>
-    <command>./build/creator</command>
+  <executable name='lidar_node'>
+    <command>./build/lidar_node</command>
   </executable>
 </ignition>

@@ -16,16 +16,20 @@
 */
 
 #include <ignition/msgs/entity_factory.pb.h>
-
 #include <iostream>
-
+#include <string>
 #include <ignition/transport/Node.hh>
-
+#include <cstdlib>
+#include <bits/stdc++.h>
+#include <chrono>
+#include <thread>
+#include <list>
 // Create a transport node.
 ignition::transport::Node node;
 
 // timeout used for services
 constexpr unsigned int timeout = 5000;
+
 
 void createLight()
 {
@@ -66,13 +70,16 @@ void createLight()
 //! [call service create]
 }
 
-void createEntityFromStr(const std::string modelStr)
+void createEntityFromStr(const std::string modelStr, const std::string name)
 {
 //! [call service create sphere]
   bool result;
   ignition::msgs::EntityFactory req;
+
   ignition::msgs::Boolean res;
   req.set_sdf(modelStr);
+  req.set_name(name);
+  //req.set_allow_renaming(1);
 
   bool executed = node.Request("/world/empty/create",
             req, timeout, res, result);
@@ -91,6 +98,33 @@ void createEntityFromStr(const std::string modelStr)
 //! [call service create sphere]
 }
 
+void removeEntityFromStr(const std::string name, ignition::msgs::Entity_Type ts)
+{
+//! [call service create sphere]
+  bool result;
+  ignition::msgs::Entity req;
+  ignition::msgs::Boolean res;
+
+  // ignition::msgs::Entity_Type entity_type = 2; //MODEL
+  req.set_name(name);
+  req.set_type(ts);
+
+  bool executed = node.Request("/world/empty/remove",
+            req, timeout, res, result);
+  if (executed)
+  {
+    if (result)
+      std::cout << "Entity was removed : [" << res.data() << "]" << std::endl;
+    else
+    {
+      std::cout << "Service call failed" << std::endl;
+      return;
+    }
+  }
+  else
+    std::cerr << "Service call timed out" << std::endl;
+//! [call service create sphere]
+}
 //////////////////////////////////////////////////
 std::string generateLightStr(
   const std::string light_type, const std::string name,
@@ -150,33 +184,128 @@ std::string generateLightStr(
   return lightStr;
 }
 
+std::string random_num(int min, int max){
+  return std::to_string(min + (rand() % static_cast<int>(max - min + 1)));
+}
+
+int random_num_int(int min, int max){
+  return min + (rand() % static_cast<int>(max - min + 1));
+}
+
+std::string randomize_pose(){
+  int max = 30;
+  int min = -30;
+  std::list<int> integer_list;
+  std::string pose_string = "<pose>";
+  int z = random_num_int(0,5);
+  integer_list.push_back(z);
+  for (int i=0;i < 2;i++){
+    int output = min + (rand() % static_cast<int>(max - min + 1));
+    integer_list.push_front(output);
+  }
+  for (auto v : integer_list)
+      pose_string += std::to_string(v) + " " ;
+  pose_string += "0 0 0</pose>";
+  return pose_string;
+}
+
+void create_random_entity(std::string name, std::string geometry){
+  removeEntityFromStr(name, ignition::msgs::Entity_Type_MODEL);
+  removeEntityFromStr(name, ignition::msgs::Entity_Type_MODEL);
+  removeEntityFromStr(name, ignition::msgs::Entity_Type_VISUAL);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+
+  std::string intro_string = R"(
+    <?xml version="1.0" ?>
+    <sdf version='1.7'>)";
+  
+  intro_string += R"(
+      <model name=')" + name + "'>" + R"(
+        <link name='link'>
+        )";
+
+  auto end = R"(
+      </model>
+    </sdf>)";
+
+  std::string visual = R"(          <visual name='visual'>
+            <plugin filename="ignition-gazebo-label-system" name="ignition::gazebo::systems::Label">
+                <label>10</label>
+            </plugin>)";
+  intro_string += randomize_pose();
+  intro_string += visual;
+  intro_string += geometry;
+  intro_string += end;
+  std::cout << intro_string;
+  createEntityFromStr(intro_string, name);
+}
+
+std::string generate_capsule_str(int min, int max){
+  std::string capsule = R"(
+            <geometry> 
+              <capsule>)";
+  std::string radius = "<radius>" + random_num(min, max) + "</radius>";
+  std::string length = "<length>" + random_num(min, max) + "</length>";
+  capsule += radius;
+  capsule += length;
+  capsule += R"(</capsule>
+            </geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>                    
+              <capsule>)";
+    capsule += radius;
+    capsule += length;
+    capsule += R"(</capsule>
+            </geometry>
+          </collision>
+        </link>)";
+  return capsule;
+}
+
+
+std::string generate_box_str(int min, int max){
+  std::string box = R"(
+            <geometry>            <box>)";
+  std::string size = "<size>" + random_num(min,max) +" " + random_num(min,max) + " " + random_num(min,max) +  "</size>";
+  box += size;
+  box += R"(</box></geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>            <box>)";
+  box += size;
+
+  box += R"(</box></geometry>
+          </collision>
+        </link>)";
+  return box;
+}
+
+std::string generate_sphere_str(int min, int max){
+  std::string sphere = R"(
+            <geometry>            <sphere>)";
+  std::string radius = "<radius>" + random_num(min,max) + "</radius>";
+  sphere += radius;
+  sphere += R"(</sphere></geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>            <sphere>)";
+  sphere += radius;
+
+  sphere += R"(</sphere></geometry>
+          </collision>
+        </link>)";
+  return sphere;
+}
+
 //////////////////////////////////////////////////
 int main(int argc, char **argv){
-    using namespace std;
-    string stair_str = R"(
-        <?xml version="1.0" ?> 
-        <sdf version='1.6'>)";
-    string line;
-    ifstream myfile ("/home/marius/Development/SemanticSegmentation/stairs.txt");
-    if (myfile.is_open())
-    {
-      int numLines = 0;
-      while ( getline (myfile,line) && numLines < 17)
-      {
-        stair_str.append(line + "\n");
-        numLines++;
-      }
-      myfile.close();
-      stair_str.append("</sdf>");
-      cout << stair_str;
-    }
-
-    else cout << "Unable to open file"; 
 
   auto sphereStr = R"(
     <?xml version="1.0" ?>
     <sdf version='1.7'>
-        <model name="stair_0">
+        <model name="body1  ">
             <pose>0 0 0 0 0 0</pose>
             <static>true</static>
             <link name="body">
@@ -187,25 +316,46 @@ int main(int argc, char **argv){
                     <geometry>
                         <mesh>
                             <scale>1 1 1</scale>
-                            <uri>meshes/stairs/stairs_0056.dae</uri>
-                        </mesh>
+              <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Radio/4/files/meshes/Radio.dae</uri>                        </mesh>
                     </geometry>
                 </visual>
             </link>
         </model>
     </sdf>)";
 //! [create sphere]
+  auto woodblock = R"(
+    <?xml version="1.0" ?>
+    <sdf version='1.7'>
+    <include>
+      <pose>3 -1 0 0 0 0</pose>
+      <uri>https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Backpack</uri>
+    </include>
+      </model>
+    </sdf>)";
 
-  createEntityFromStr(sphereStr);
+  
+  
+  const std::string str1 = R"(box)";
+  const std::string str2 = R"(sphere)";
+  const std::string str3 = R"(capsule)";
+  const std::string str4 = R"(box2)";
+  const std::string str5 = R"(sphere2)";
+  const std::string str6 = R"(capsule2)";
 
-  createEntityFromStr(
-    generateLightStr("spot", "spot_light", false,
-      ignition::math::Pose3d(0, 0, 4, 0, 0, 0),
-      ignition::math::Color(0, 0, 1.0, 1.0),
-      ignition::math::Color(0, 0, 1.0, 1.0),
-      1.0, 0.2, 0.2, 0.001,
-      ignition::math::Vector3d(0.5, 0.2, -0.9),
-      0.15, 0.45, 1.0));
 
-  createLight();
-}
+  create_random_entity(str1, generate_box_str(1,10));
+  create_random_entity(str2, generate_sphere_str(0,3));
+  create_random_entity(str3, generate_capsule_str(0,3));
+
+  create_random_entity(str1, generate_box_str(1,5));
+  create_random_entity(str2, generate_sphere_str(0,1));
+  create_random_entity(str3, generate_capsule_str(0,1));
+
+  }
+
+
+//TODO:
+// create list of objects to create from, either collection of spheres or from ignition fuel
+// create random positions within 30,30,30 to -30, -30, -30
+// remove old objects
+// spawn the new ones

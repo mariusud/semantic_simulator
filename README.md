@@ -145,3 +145,8 @@ week 2:
 train
 
  ./visualize.py --sequence 00 --dataset /home/marius/ws/src/labelling_node/src/dataset/ 
+
+
+UNLABELLED=0
+CHIMNEYS=25
+STAIRS=50
