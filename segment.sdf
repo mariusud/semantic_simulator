@@ -1272,7 +1272,7 @@
     
     <!-- Stairs, all of them have label 5 -->
     
-    <model name="stair_0">
+    <!-- <model name="stair_0">
     <pose>0 0 0 0 0 0</pose>
     <static>true</static>
     <link name="body">
@@ -1283,12 +1283,31 @@
             <geometry>
                 <mesh>
 	 	 	 	 	 	 	 	 	<scale>0.100000 0.100000 0.200000</scale>  
+	 	 	 	 	 	 	 	 	<uri>chimneys/chimney_02.STL</uri>  
+	 	 	 	 	 	 	 	 	<scale>0.398262 0.398262 0.199342</scale>  
 	 	 	 	 	 	 	 	 	<uri>chimneys/chimney_01.STL</uri>  
+        </visual>
+    </link>
+    </model> -->
+    <model name="tank">
+    <pose>0 0 0 0 0 0</pose>
+    <static>true</static>
+    <link name="body">
+        <visual name="visual">
+            <plugin filename="ignition-gazebo-label-system" name="ignition::gazebo::systems::Label">
+                <label>150</label>
+            </plugin>
+            <geometry>
+                <mesh>
+	 	 	 	 	 	 	 	 	<scale>0.112334 0.198570 0.169766</scale>  
+	 	 	 	 	 	 	 	 	<uri>tanks/tank_20.STL</uri>  
                 </mesh>
             </geometry>
+
         </visual>
     </link>
     </model>
+
     <!--walls-->
     <model name='wall'>
         <static>true</static>

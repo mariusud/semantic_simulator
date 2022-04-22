@@ -192,24 +192,33 @@ int random_num_int(int min, int max){
   return min + (rand() % static_cast<int>(max - min + 1));
 }
 
-std::string randomize_pose(){
+std::list<int> randomize_pose(bool returnint){
   int max = 30;
   int min = -30;
   std::list<int> integer_list;
-  std::string pose_string = "<pose>";
   int z = random_num_int(0,5);
   integer_list.push_back(z);
   for (int i=0;i < 2;i++){
     int output = min + (rand() % static_cast<int>(max - min + 1));
     integer_list.push_front(output);
   }
+  if (returnint){
+    return integer_list;
+  } 
+}
+
+std::string deviate_poses(std::list<int> integer_list){
+  std::list<int> new_list;
+  std::string pose_string = "<pose>";
   for (auto v : integer_list)
+      new_list.push_back(v + random_num_int(0,0));
+  for (auto v : new_list)
       pose_string += std::to_string(v) + " " ;
   pose_string += "0 0 0</pose>";
   return pose_string;
 }
 
-void create_random_entity(std::string name, std::string geometry){
+void create_random_entity(std::string name, std::string pose , std::string geometry){
   removeEntityFromStr(name, ignition::msgs::Entity_Type_MODEL);
   removeEntityFromStr(name, ignition::msgs::Entity_Type_MODEL);
   removeEntityFromStr(name, ignition::msgs::Entity_Type_VISUAL);
@@ -233,7 +242,7 @@ void create_random_entity(std::string name, std::string geometry){
             <plugin filename="ignition-gazebo-label-system" name="ignition::gazebo::systems::Label">
                 <label>10</label>
             </plugin>)";
-  intro_string += randomize_pose();
+  intro_string += pose;
   intro_string += visual;
   intro_string += geometry;
   intro_string += end;
@@ -334,7 +343,6 @@ int main(int argc, char **argv){
     </sdf>)";
 
   
-  
   const std::string str1 = R"(box)";
   const std::string str2 = R"(sphere)";
   const std::string str3 = R"(capsule)";
@@ -342,14 +350,43 @@ int main(int argc, char **argv){
   const std::string str5 = R"(sphere2)";
   const std::string str6 = R"(capsule2)";
 
+  const std::string str7 = R"(box3)";
+  const std::string str8 = R"(sphere3)";
+  const std::string str9 = R"(capsule3)";
+  
+  const std::string str10 = R"(box4)";
+  const std::string str11 = R"(sphere4)";
+  const std::string str12 = R"(capsule4)";
 
-  create_random_entity(str1, generate_box_str(1,10));
-  create_random_entity(str2, generate_sphere_str(0,3));
-  create_random_entity(str3, generate_capsule_str(0,3));
+  const std::string str13 = R"(box5)";
+  const std::string str14 = R"(sphere5)";
+  const std::string str15 = R"(capsule5)";
 
-  create_random_entity(str1, generate_box_str(1,5));
-  create_random_entity(str2, generate_sphere_str(0,1));
-  create_random_entity(str3, generate_capsule_str(0,1));
+  std::list<int> pose = randomize_pose(true);
+  create_random_entity(str1, deviate_poses(pose),  generate_box_str(1,10));
+  create_random_entity(str2, deviate_poses(pose), generate_sphere_str(0,3));
+  create_random_entity(str3, deviate_poses(pose), generate_capsule_str(0,3));
+
+  std::list<int> pose2 = randomize_pose(true);
+  create_random_entity(str4, deviate_poses(pose2), generate_box_str(1,5));
+  create_random_entity(str5, deviate_poses(pose2),generate_sphere_str(0,1));
+  create_random_entity(str6,deviate_poses(pose2), generate_capsule_str(0,1));
+
+  std::list<int> pose3 = randomize_pose(true);
+  create_random_entity(str7, deviate_poses(pose3), generate_box_str(2,5));
+  create_random_entity(str8, deviate_poses(pose3),generate_sphere_str(0,2));
+  create_random_entity(str9,deviate_poses(pose3), generate_capsule_str(0,1));
+
+  std::list<int> pose4 = randomize_pose(true);
+  create_random_entity(str10, deviate_poses(pose4), generate_box_str(3,7));
+  create_random_entity(str11, deviate_poses(pose4),generate_sphere_str(0,1));
+  create_random_entity(str12,deviate_poses(pose4), generate_capsule_str(0,2));
+
+  std::list<int> pose5 = randomize_pose(true);
+  create_random_entity(str13, deviate_poses(pose5), generate_box_str(2,1));
+  create_random_entity(str14, deviate_poses(pose5),generate_sphere_str(0,1));
+  create_random_entity(str15,deviate_poses(pose5), generate_capsule_str(1,4));
+
 
   }
 
